@@ -36,12 +36,29 @@ export function createWallet() {
 
 export function importWallet(privateKey) {
     try {
-        const wallet = new ethers.Wallet(privateKey);
+        if (!privateKey || typeof privateKey !== 'string') {
+            throw new Error('Private key must be a valid string');
+        }
+
+        let formattedKey = privateKey.trim();
+
+        // Ensure it starts with 0x
+        if (!formattedKey.startsWith('0x')) {
+            formattedKey = '0x' + formattedKey;
+        }
+
+        // ethers.Wallet requires exactly 66 characters total (0x + 64 hex chars)
+        if (formattedKey.length !== 66) {
+            throw new Error('Invalid private key length');
+        }
+
+        const wallet = new ethers.Wallet(formattedKey);
+
         return {
             address: wallet.address,
             privateKey: wallet.privateKey,
         };
-    } catch {
+    } catch (error) {
         throw new Error('Invalid private key. Please check and try again.');
     }
 }

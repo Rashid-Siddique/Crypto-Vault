@@ -106,7 +106,7 @@ export default function Dashboard() {
             <div className="w-full max-w-[780px] mx-auto space-y-6">
 
                 {/* ── Top bar: Avatar + Address + Disconnect ── */}
-                <div className="flex items-center justify-between anim-slide-up">
+                <div className="relative z-[100] flex items-center justify-between anim-slide-up">
                     <div className="flex items-center gap-3">
                         <div className="w-11 h-11 rounded-full bg-gradient-to-br from-pink to-violet
                             flex items-center justify-center text-white text-sm font-bold font-mono
